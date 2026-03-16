@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>spiriter - 精灵图处理器</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/konva@9.3.15/konva.min.js"></script>
+  </head>
+  <body>
+    <div class="backdrop"></div>
+    <main class="layout">
+      <section class="panel controls">
+        <h1>spiriter</h1>
+        <p class="sub">上传图片，自动去背景，拆分角色并手动重排导出。</p>
+
+        <label class="label">上传图片</label>
+        <input id="fileInput" type="file" accept="image/*" />
+
+        <label class="label">背景容差 <span id="tolValue">48</span></label>
+        <input id="tolerance" type="range" min="1" max="160" value="48" />
+
+        <label class="label">最小对象面积 <span id="areaValue">36</span></label>
+        <input id="minArea" type="range" min="1" max="500" value="36" />
+
+        <button id="processBtn">自动处理</button>
+
+        <hr />
+
+        <div class="row">
+          <div>
+            <label class="label">单格宽度（像素）</label>
+            <input id="cellW" type="number" min="1" step="1" value="128" />
+          </div>
+          <div>
+            <label class="label">单格高度（像素）</label>
+            <input id="cellH" type="number" min="1" step="1" value="128" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label class="label">列数</label>
+            <input id="gridCols" type="number" min="1" step="1" value="8" />
+          </div>
+          <div>
+            <label class="label">行数</label>
+            <input id="gridRows" type="number" min="1" step="1" value="8" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label class="label">画布底色</label>
+            <input id="canvasColor" type="color" value="#f5f3ec" />
+          </div>
+          <div>
+            <label class="label">重置底色</label>
+            <button id="resetCanvasColorBtn" type="button">恢复默认</button>
+          </div>
+        </div>
+
+        <p id="exportSize" class="meta">导出区域：1024 x 1024 像素</p>
+        <p class="meta">选中对象后滚动鼠标滚轮可缩放，导出时不会包含辅助框线。</p>
+
+        <div class="button-row edit-row">
+          <button id="cloneBtn" disabled>克隆选中对象</button>
+          <button id="deleteBtn" disabled>删除选中对象</button>
+        </div>
+
+        <button id="magicEraseBtn" disabled>连通透明擦除</button>
+
+        <button id="exportBtn" disabled>导出精灵图</button>
+        <a id="downloadLink" class="download" download="sprite_sheet.png">下载导出结果</a>
+
+        <div class="sprite-preview">
+          <h2>精灵表播放预览</h2>
+          <label class="label">预览帧率（FPS）</label>
+          <input id="fpsInput" type="number" min="1" max="60" step="1" value="12" />
+          <div class="button-row">
+            <button id="playBtn" disabled>播放预览</button>
+            <button id="stopBtn" disabled>停止</button>
+          </div>
+          <canvas id="spriteCanvas" width="128" height="128"></canvas>
+          <p id="previewInfo" class="meta">预览将在这里按导出后的精灵图表逐帧播放。</p>
+        </div>
+
+        <p id="status" class="status">等待上传图片。</p>
+      </section>
+
+      <section class="panel workspace">
+        <div id="stageWrap"></div>
+      </section>
+    </main>
+
+    <script type="module" src="/static/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,230 @@
+:root {
+  --bg: #f5f2e9;
+  --ink: #1f2a2f;
+  --panel: rgba(255, 255, 255, 0.82);
+  --accent: #127369;
+  --accent-2: #f2a541;
+  --line: #d8d3c8;
+  --canvas-bg: #f5f3ec;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: var(--ink);
+  background: radial-gradient(circle at 10% 10%, #fff9ed 0%, #f4efe2 45%, #ebe5d8 100%);
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 16px;
+  padding: 16px;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(6px);
+  min-width: 0;
+}
+
+.controls {
+  padding: 18px;
+  overflow: auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: 0.04em;
+}
+
+.sub {
+  margin-top: 6px;
+  margin-bottom: 16px;
+  color: #4e5c62;
+}
+
+.label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+input[type="file"],
+input[type="number"],
+input[type="range"],
+button {
+  width: 100%;
+}
+
+input[type="number"],
+input[type="file"] {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+}
+
+button {
+  margin-top: 12px;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  transition: transform 0.12s ease, filter 0.2s ease;
+}
+
+button:hover {
+  filter: brightness(1.06);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button[disabled] {
+  cursor: not-allowed;
+  background: #98b4af;
+}
+
+button.tool-active {
+  background: var(--accent-2);
+  color: #1f2a2f;
+}
+
+hr {
+  margin: 16px 0;
+  border: none;
+  border-top: 1px solid var(--line);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.workspace {
+  position: relative;
+  padding: 12px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+#stageWrap {
+  width: 100%;
+  height: calc(100vh - 56px);
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 12px;
+  border: 1px dashed #9aa8a0;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--canvas-bg) 86%, white), var(--canvas-bg));
+  overflow: auto;
+  cursor: grab;
+}
+
+.status {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(18, 115, 105, 0.1);
+}
+
+.meta {
+  margin: 10px 0 0;
+  color: #4e5c62;
+  font-size: 0.94rem;
+}
+
+.sprite-preview {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.sprite-preview h2 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.edit-row {
+  margin-top: 12px;
+}
+
+#spriteCanvas {
+  display: block;
+  width: min(100%, 260px);
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background:
+    linear-gradient(45deg, color-mix(in srgb, var(--canvas-bg) 88%, #000 12%) 25%, transparent 25%),
+    linear-gradient(-45deg, color-mix(in srgb, var(--canvas-bg) 88%, #000 12%) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, color-mix(in srgb, var(--canvas-bg) 88%, #000 12%) 75%),
+    linear-gradient(-45deg, transparent 75%, color-mix(in srgb, var(--canvas-bg) 88%, #000 12%) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  image-rendering: pixelated;
+}
+
+.download {
+  display: none;
+  margin-top: 10px;
+  color: var(--accent-2);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.download.active {
+  display: inline-block;
+}
+
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  #stageWrap {
+    height: 65vh;
+  }
+}
